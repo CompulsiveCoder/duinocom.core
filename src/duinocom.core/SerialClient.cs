@@ -6,26 +6,20 @@ namespace duinocom
 	public class SerialClient
 	{
 		public SerialPort Port { get; set; }
-		
-        public string PortName { get; set; }
-        public int BaudRate = 9600;
         
 		public SerialClient (string portName, int baudRate)
 		{
-			PortName = portName;
-			BaudRate = baudRate;
+			Port = new SerialPort(portName, baudRate);
 		}
 		
 		public SerialClient (SerialPort port)
 		{
 			Port = port;
-			PortName = port.PortName;
-			BaudRate = port.BaudRate;
 		}
 		
 		public void Open()
 		{
-			throw new NotImplementedException();
+			Port.Open ();
 		}
 		
 		public void Close()
@@ -35,12 +29,35 @@ namespace duinocom
 		
 		public void Write(string message)
 		{
-			throw new NotImplementedException();
+			Port.Write (message);
 		}
 		
+		public void WriteLine(string message)
+		{
+			Port.Write (message);
+		
+			Port.Write (Port.NewLine);
+		}
+		
+		public string WriteAndRead(string message)
+		{
+			WriteLine(message);
+			
+			return Read();
+		}
+	
 		public string Read()
 		{
-			throw new NotImplementedException();
+			var returnMessage = String.Empty;
+			int count = Port.BytesToRead;
+			int intReturnASCII = 0;
+			while (count > 0) {
+				intReturnASCII = Port.ReadByte ();
+				returnMessage = returnMessage + Convert.ToChar (intReturnASCII);
+				count--;
+			}
+
+			return returnMessage.Trim();
 		}
 	}
 }
