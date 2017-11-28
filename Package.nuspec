@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>duinocom.core</id>
+    <version>1.0.0</version>
+    <authors>compulsivecoder</authors>
+    <owners>compulsivecoder</owners>
+    <projectUrl>https://github.com/CompulsiveCoder/duinocom.core</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An arduino serial communication library.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>arduino iot</tags>
+  </metadata>
+  <files>
+      <file src="bin\**" target="lib\" />
+  </files>
+</package>
