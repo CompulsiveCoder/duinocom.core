@@ -24,7 +24,7 @@ namespace duinocom
 		
 		public void Close()
 		{
-			throw new NotImplementedException();
+            Port.Close();
 		}
 		
 		public void Write(string message)
