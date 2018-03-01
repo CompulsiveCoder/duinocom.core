@@ -19,7 +19,8 @@ namespace duinocom
 		
 		public void Open()
 		{
-			Port.Open ();
+			if (!Port.IsOpen)
+				Port.Open ();
 		}
 		
 		public void Close()

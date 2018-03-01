@@ -2,17 +2,17 @@
 <package >
   <metadata>
     <id>duinocom.core</id>
-    <version>1.0.2</version>
+    <version>1.0.5</version>
     <authors>compulsivecoder</authors>
     <owners>compulsivecoder</owners>
     <projectUrl>https://github.com/CompulsiveCoder/duinocom.core</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An arduino serial communication library.</description>
-    <releaseNotes>Initial release.</releaseNotes>
+    <releaseNotes>Added SerialPortDetector</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>arduino iot</tags>
   </metadata>
   <files>
-      <file src="bin\**" target="lib\" />
+      <file src="bin/Release/**" target="lib/net40" />
   </files>
 </package>
