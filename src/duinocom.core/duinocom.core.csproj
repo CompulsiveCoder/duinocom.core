@@ -38,4 +38,7 @@
     <Compile Include="SerialPortDetector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="duinocom.core.snk" />
+  </ItemGroup>
 </Project>
