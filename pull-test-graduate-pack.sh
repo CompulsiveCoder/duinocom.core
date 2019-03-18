@@ -6,6 +6,8 @@ sh increment-version.sh && \
 
 sh push-version.sh && \
 
+sh clean.sh && \
+
 sh test-and-graduate.sh && \
 
 git checkout master && \
