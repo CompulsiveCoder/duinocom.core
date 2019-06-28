@@ -51,6 +51,6 @@ echo "  Release ID: $RELEASE_ID"
 echo ""
 
 # Upload the artifact
-curl -XPOST -H "Authorization:token $GITHUB_TOKEN" -H 'Cache-Control: no-cache' -H "Content-Type:application/octet-stream" --data-binary @releases/$RELEASE_NAME.zip https://uploads.github.com/repos/$GITHUB_OWNER/$GITHUB_PROJECT/releases/$RELEASE_ID/assets?name=$RELEASE_NAME.zip
+curl -XPOST -H "Authorization:token $GITHUB_TOKEN" -H 'Cache-Control: no-cache' -H "Content-Type:application/octet-stream" --data-binary @releases/$RELEASE_NAME.zip https://uploads.github.com/repos/$GITHUB_OWNER/$GITHUB_PROJECT/releases/$RELEASE_ID/assets?name=$RELEASE_NAME.zip || exit 1
   
 echo "Finished publishing release."
