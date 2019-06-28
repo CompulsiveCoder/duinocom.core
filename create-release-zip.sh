@@ -25,9 +25,9 @@ cp $BIN_RELEASE_FOLDER/duinocom.core.dll.mdb $TMP_RELEASE_FOLDER/
 
 mkdir -p $RELEASES_FOLDER
 
-cd .tmp/
+cd .tmp/$PROJECT_NAME
 
-zip -r $DIR/releases/$PROJECT_NAME.$VERSION$VERSION_POSTFIX.zip $PROJECT_NAME
+zip -r $DIR/releases/$PROJECT_NAME.$VERSION$VERSION_POSTFIX.zip *
 
 cd $DIR
 
