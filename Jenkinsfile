@@ -1,15 +1,23 @@
 pipeline {
     agent any
+    options {
+      skipDefaultCheckout true
+    }
     stages {
+        stage('CleanWSStart') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('Checkout') {
             steps {
-                checkout scm
-                
-                shHide( 'git remote set-url origin https://${GHTOKEN}@github.com/CompulsiveCoder/duinocom.core.git' )
+                shHide( 'git clone --recursive -b $BRANCH_NAME https://${GHTOKEN}@github.com/CompulsiveCoder/duinocom.core.git .' )
                 sh "git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master"
                 sh "git fetch --no-tags"
                 sh 'git checkout $BRANCH_NAME'
                 sh 'git pull origin $BRANCH_NAME'
+                sh 'git config --global user.email "compulsivecoder@gmail.com"'
+                sh 'git config --global user.name "CompulsiveCoderCI"'
             }
         }
         stage('Prepare') {
@@ -85,6 +93,11 @@ pipeline {
                 sh 'sh push-version.sh'
             }
         }
+        stage('CleanWSEnd') {
+            steps {
+                deleteDir()
+            }
+        }
     }
     post {
         success() {
@@ -96,6 +109,7 @@ pipeline {
             )
         }
         failure() {
+          deleteDir()
           emailext (
               subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
               body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
