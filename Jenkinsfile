@@ -44,6 +44,12 @@ pipeline {
               sh 'sh inject-version.sh'
             }
         }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
+            }
+        }
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -85,12 +91,6 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh graduate.sh'
-            }
-        }
-        stage('Push Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-version.sh'
             }
         }
         stage('CleanWSEnd') {
