@@ -32,22 +32,10 @@ pipeline {
                 sh 'sh init.sh'
             }
         }
-        stage('Increment Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-              sh 'sh increment-version.sh'
-            }
-        }
         stage('Inject Version') {
             when { expression { !shouldSkipBuild() } }
             steps {
               sh 'sh inject-version.sh'
-            }
-        }
-        stage('Push Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-version.sh'
             }
         }
         stage('Build') {
@@ -93,6 +81,18 @@ pipeline {
                 sh 'sh graduate.sh'
             }
         }
+        stage('Increment Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+              sh 'sh increment-version.sh'
+            }
+        }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
+            }
+        } 
         stage('CleanWSEnd') {
             steps {
                 deleteDir()
