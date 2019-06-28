@@ -30,17 +30,35 @@ pipeline {
                 sh 'sh build.sh'
             }
         }
+        stage('Tag and Push') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh tag-and-push.sh'
+            }
+        }
+        stage('Create Release Zip') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh create-release-zip.sh'
+            }
+        }
+        stage('Publish GitHub Release') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh publish-github-release.sh'
+            }
+        }
         stage('Clean') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh clean.sh'
             }
         }
-        stage('Nuget') {
+        stage('Nuget Publish') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                shHide( 'sh nuget-set-api-key.sh ${NUGETTOKEN}' )
-                sh 'sh nuget-pack-and-push.sh'
+                shHide( '#sh nuget-set-api-key.sh ${NUGETTOKEN}' )
+                sh '#sh nuget-pack-and-push.sh'
             }
         } 
         stage('Graduate') {
