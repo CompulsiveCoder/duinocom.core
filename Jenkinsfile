@@ -24,6 +24,18 @@ pipeline {
                 sh 'sh init.sh'
             }
         }
+        stage('Increment Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+              sh 'sh increment-version.sh'
+            }
+        }
+        stage('Inject Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+              sh 'sh inject-version.sh'
+            }
+        }
         stage('Build') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -65,12 +77,6 @@ pipeline {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh graduate.sh'
-            }
-        }
-        stage('Increment Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-              sh 'sh increment-version.sh'
             }
         }
         stage('Push Version') {
